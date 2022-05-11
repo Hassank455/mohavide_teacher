@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mohavide_teacher/student_profile.dart';
-import 'package:mohavide_teacher/students_details.dart';
+import 'package:mohavide_teacher/core/utils/contants.dart';
+import 'package:mohavide_teacher/views/student_of_teacher_screen.dart/widget/student_data_details.dart';
+import 'package:mohavide_teacher/views/student_of_teacher_screen.dart/widget/student_profile.dart';
 
 class StudentTabs extends StatelessWidget {
-  const StudentTabs({Key? key}) : super(key: key);
+  Map? data = {};
+
+  StudentTabs({this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +15,10 @@ class StudentTabs extends StatelessWidget {
       initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          elevation: 0,
+          backgroundColor: primaryColor,
           automaticallyImplyLeading: false,
-          title: Text('بيانات الطالب '),
+          title: Text('${data?['nameOfStudent']} بيانات الطالب '),
           actions: [
             IconButton(
                 onPressed: () {
@@ -25,22 +28,9 @@ class StudentTabs extends StatelessWidget {
           ],
           centerTitle: true,
           bottom: TabBar(
+            indicatorColor: Colors.white,
+            unselectedLabelColor: Colors.white,
             tabs: [
-
-
-              Tab(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Text("بروفايل المحفظ"),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Icon(Icons.person),
-                  ],
-                ),
-              ),
               Tab(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -54,13 +44,28 @@ class StudentTabs extends StatelessWidget {
                   ],
                 ),
               ),
+              Tab(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Text("بروفايل المحفظ"),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Icon(Icons.person),
+                  ],
+                ),
+              ),
+
             ],
           ),
         ),
         body:  TabBarView(
           children: [
-            Student_Profile(),
-            StudentDetails(),
+
+            StudentDataDetails(uId: data?['uId']),
+            StudentProfile(data: data),
           ],
         ),
       ),
@@ -69,4 +74,3 @@ class StudentTabs extends StatelessWidget {
   }
 
 }
-

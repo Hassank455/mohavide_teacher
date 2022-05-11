@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mohavide_teacher/core/utils/contants.dart';
-import 'package:mohavide_teacher/student_of_teacher.dart';
+import 'package:mohavide_teacher/views/student_of_teacher_screen.dart/student_of_teacher.dart';
 import 'package:mohavide_teacher/views/home_screen/controller/controller.dart';
 import 'package:mohavide_teacher/views/home_screen/state/state.dart';
 import 'package:mohavide_teacher/widgets/listTile_profile.dart';
@@ -13,6 +13,9 @@ class Home_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return BlocConsumer<HomeScreenCubit, HomeScreenStates>(
         listener: (context, state) {
       if (state is GetDataLoadingState) {
@@ -21,6 +24,9 @@ class Home_page extends StatelessWidget {
         );
       }
     }, builder: (context, state) {
+      print('asdasd');
+      print(HomeScreenCubit.get(context).allDataS);
+     // debugPrint('${HomeScreenCubit.get(context).allDataS}');
       return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
