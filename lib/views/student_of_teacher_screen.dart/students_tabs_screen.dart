@@ -18,7 +18,7 @@ class StudentTabs extends StatelessWidget {
           elevation: 0,
           backgroundColor: primaryColor,
           automaticallyImplyLeading: false,
-          title: Text('${data?['nameOfStudent']} بيانات الطالب '),
+          title: Text(' بيانات الطالب ${data?['nameOfStudent']}'),
           actions: [
             IconButton(
                 onPressed: () {
@@ -49,7 +49,7 @@ class StudentTabs extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
-                    Text("بروفايل المحفظ"),
+                    Text("بروفايل الطالب"),
                     SizedBox(
                       width: 12,
                     ),

@@ -1,15 +1,25 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mohavide_teacher/views/home_screen/controller/controller.dart';
 import 'package:mohavide_teacher/views/student_of_teacher_screen.dart/widget/student_profile.dart';
 import 'package:mohavide_teacher/views/student_of_teacher_screen.dart/students_tabs_screen.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:syncfusion_flutter_xlsio/xlsio.dart' as excel;
 
-Widget StudentWidget({String? name, String? image, String? nameGuration,context,Map? data}) =>
+Widget StudentWidget(
+        {String? name,
+        String? uId,
+        String? image,
+        String? nameGuration,
+        context,
+        Map? data}) =>
     GestureDetector(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => StudentTabs(data: data)/*StudentProfile(
-          data: data,
-        ),*/
-        ));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => StudentTabs(data: data)));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -75,7 +85,67 @@ Widget StudentWidget({String? name, String? image, String? nameGuration,context,
             ),
             Expanded(
                 flex: 1,
-                child: IconButton(onPressed: () {}, icon: (Icon(Icons.print)))),
+                child: IconButton(
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection('students')
+                        .doc(uId)
+                        .get()
+                        .then((value) async {
+                      final excel.Workbook workbook = excel.Workbook();
+                      final excel.Worksheet sheet = workbook.worksheets[0];
+                      sheet.getRangeByName('A1').setText('Student Name');
+                      sheet.getRangeByName('B1').setText('Date');
+                      sheet.getRangeByName('C1').setText('preservation');
+                      sheet.getRangeByName('D1').setText('evaluation');
+                      sheet.getRangeByName('E1').setText('description');
+                      sheet.getRangeByName('F1').setText('homeWork');
+                      sheet.getRangeByName('G1').setText('audience');
+                      sheet.getRangeByName('A2').setText(name);
+                      int index = 2;
+                      if(value.data()?['dataStudent'] == null){
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('لا يوجد بيانات للطالب '),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }else{
+                        for (var row in value.data()?['dataStudent']) {
+                          sheet.getRangeByName('B$index').setText(row['date']);
+                          sheet.getRangeByName('C$index').setText(
+                            row['preservation'],
+                          );
+                          sheet.getRangeByName('D$index').setText(
+                            row['evaluation'],
+                          );
+                          sheet.getRangeByName('E$index').setText(
+                            row['description'],
+                          );
+                          sheet
+                              .getRangeByName('F$index')
+                              .setText(row['homeWork']);
+                          sheet.getRangeByName('G$index').setText(
+                            row['audience'],
+                          );
+                          index++;
+                        }
+
+                        final List<int> bytes = workbook.saveAsStream();
+                        workbook.dispose();
+
+                        final String path =
+                            (await getApplicationDocumentsDirectory()).path;
+                        final String fileName = '$path/Output.xlsx';
+                        final File file = File(fileName);
+                        await file.writeAsBytes(bytes, flush: true);
+                        OpenFile.open(fileName);
+                      }
+
+                    });
+                  },
+                  icon: (Icon(Icons.print, color: Colors.grey)),
+                )),
           ],
         ),
       ),

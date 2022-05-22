@@ -44,25 +44,29 @@ class StudentDataDetails extends StatelessWidget {
                 ),
               );
             }
-            if (snapshot.data?['dataStudent'] == null || snapshot.data?['dataStudent'].isEmpty) {
+            if (snapshot.data['dataStudent'] == null || snapshot.data['dataStudent'].isEmpty
+                || snapshot.data['dataStudent'].length == 0) {
               return const Center(
                 child: Text('لا يوجد بيانات'),
               );
             }
-            return ListView(
-              physics: AlwaysScrollableScrollPhysics(),
-              shrinkWrap: true,
-              children: snapshot.data?['dataStudent'].map<Widget>((document) {
-                return showStudentData(
+
+              return ListView(
+                physics: AlwaysScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: snapshot.data?['dataStudent'].map<Widget>((document) {
+                  return showStudentData(
                     preservation: document['preservation'],
                     description: document['description'],
-                  audience:document['audience'] ,
-                  evaluation: document['evaluation'],
-                  homeWork: document['homeWork'],
-                  date: document['date'],
-                );
-            }).toList(),
-            );
+                    audience:document['audience'] ,
+                    evaluation: document['evaluation'],
+                    homeWork: document['homeWork'],
+                    date: document['date'],
+                  );
+                }).toList(),
+              );
+
+
           },
         ),
       ),

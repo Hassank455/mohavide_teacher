@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mohavide_teacher/core/utils/contants.dart';
 import 'package:mohavide_teacher/views/home_screen/state/state.dart';
+
 
 class HomeScreenCubit extends Cubit<HomeScreenStates> {
   HomeScreenCubit() : super(HomeScreenInitialState());
@@ -33,7 +35,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
             if(value.data()!.isNotEmpty){
               allDataS?.add(value.data()!);
             }
-
+            emit(AddDataSuccessState());
           }).catchError((e){
             print('eeeeeee');
             print(e);
@@ -89,5 +91,49 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     selectedValue = val;
     emit(ChangeValueRadioForAddMemorizersState());
   }
+
+
+
+  dynamic? snapshotData;
+
+  void changeSnapshotData(vale){
+    snapshotData = vale;
+    emit(ChangeValueStudentSuccessState());
+  }
+  dynamic? searchData = [];
+  Future getSearch(String queryString) async {
+
+      allDataS?.forEach((element) {
+        if(element.containsKey("nameOfStudent")) {
+          if (element["nameOfStudent"].contains(queryString)) {
+            searchData?.add(element);
+            emit(test());
+            print('searchData');
+            print(searchData);
+          }
+        }
+      });
+
+
+  /*  searchData=allDataS?.where((element) {
+      print('222222');
+      print(element['nameOfStudent']);
+      element['nameOfStudent']
+          .contains(queryString.toLowerCase())
+          .toList();
+
+      return false;
+    });
+    print('searchData');
+    print(searchData);
+
+    return searchData;
+
+*/
+
+
+  }
+
+
 
 }

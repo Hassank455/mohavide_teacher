@@ -4,6 +4,7 @@ class HomeScreenInitialState extends HomeScreenStates {}
 
 class GetDataLoadingState extends HomeScreenStates {}
 class GetDataSuccessState extends HomeScreenStates {}
+class AddDataSuccessState extends HomeScreenStates {}
 class GetDataErrorState extends HomeScreenStates {
   final String error;
 
@@ -20,3 +21,6 @@ class AddDataForStudentErrorState extends HomeScreenStates {
 }
 
 class ChangeValueRadioForAddMemorizersState extends HomeScreenStates {}
+
+class ChangeValueStudentSuccessState extends HomeScreenStates {}
+class test extends HomeScreenStates {}

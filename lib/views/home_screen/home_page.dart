@@ -209,6 +209,12 @@ class Home_page extends StatelessWidget {
                           '${HomeScreenCubit.get(context).data?['phoneNumber']}',
                           Icons.call),
                       SizedBox(height: 20.h),
+                      buildLabelInProfile(
+                          'عدد الطلاب ',
+                          '${HomeScreenCubit.get(context).allDataS?.length ?? ''}',
+                          Icons.groups_rounded ),
+
+
                     ],
                   ),
                 ),
