@@ -30,7 +30,7 @@ class Home_page extends StatelessWidget {
       return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          drawer: Drawer(
+         /* drawer: Drawer(
             child: Column(
               //  crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -80,7 +80,7 @@ class Home_page extends StatelessWidget {
                   ),
                 ),
 
-                /*  UserAccountsDrawerHeader(
+                *//*  UserAccountsDrawerHeader(
                       decoration: const BoxDecoration(
                         color: primaryColor,
                       ),
@@ -129,7 +129,7 @@ class Home_page extends StatelessWidget {
                       //   accountName: Text('mnfn2000@gmail.com '),
                       //   accountEmail: Text('0598611510'),
                       // // ),
-                    ),*/
+                    ),*//*
                 ListTile(
                   title: Text('الطلاب'),
                   leading: Icon(Icons.person),
@@ -157,7 +157,7 @@ class Home_page extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          ),*/
           appBar: AppBar(
             title: Text(
               'بروفايل المحفظ ${HomeScreenCubit.get(context).data?['name']}',
@@ -167,6 +167,14 @@ class Home_page extends StatelessWidget {
             iconTheme: IconThemeData(
               color: Colors.white,
             ),
+            actions: [
+              IconButton(onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StudentOfTeacher()));
+              }, icon: Icon(Icons.person))
+            ],
             backgroundColor: primaryColor,
             elevation: 0,
           ),

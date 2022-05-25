@@ -34,7 +34,7 @@ class StudentProfile extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
+              /*Container(
                 height: 290.h,
                 child: Stack(
                   children: [
@@ -44,18 +44,20 @@ class StudentProfile extends StatelessWidget {
                       height: 230.h,
                       fit: BoxFit.cover,
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            data?['image'] ?? ''),
-                        radius: 80.w,
-                      ),
-                    ),
+
                   ],
                 ),
+              ),*/
+              SizedBox(height: 40.h),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      data?['image'] ?? ''),
+                  radius: 80.w,
+                ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 30.h),
               buildLabelInProfile('اسم الطالب', data?['nameOfStudent']  ?? '',Icons.person),
               SizedBox(height: 20.h),
               buildLabelInProfile('اسم ولي الامر', data?['nameOfGuardian']   ?? '',Icons.perm_contact_cal),

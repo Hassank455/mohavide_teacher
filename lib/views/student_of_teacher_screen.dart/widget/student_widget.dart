@@ -94,13 +94,13 @@ Widget StudentWidget(
                         .then((value) async {
                       final excel.Workbook workbook = excel.Workbook();
                       final excel.Worksheet sheet = workbook.worksheets[0];
-                      sheet.getRangeByName('A1').setText('Student Name');
-                      sheet.getRangeByName('B1').setText('Date');
-                      sheet.getRangeByName('C1').setText('preservation');
-                      sheet.getRangeByName('D1').setText('evaluation');
-                      sheet.getRangeByName('E1').setText('description');
-                      sheet.getRangeByName('F1').setText('homeWork');
-                      sheet.getRangeByName('G1').setText('audience');
+                      sheet.getRangeByName('A1').setText('اسم الطالب');
+                      sheet.getRangeByName('B1').setText('التاريخ');
+                      sheet.getRangeByName('C1').setText('ما تم حفظه');
+                      sheet.getRangeByName('D1').setText('تقييم الحفظ');
+                      sheet.getRangeByName('E1').setText('وصف وملاحظات');
+                      sheet.getRangeByName('F1').setText('الواجب البيتي');
+                      sheet.getRangeByName('G1').setText('الحضور والغياب');
                       sheet.getRangeByName('A2').setText(name);
                       int index = 2;
                       if(value.data()?['dataStudent'] == null){
